@@ -1,0 +1,132 @@
+
+#header {
+    display: flex;
+    width: 100%;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    padding: 15px 20px;
+}
+
+main {
+    width: 400px;
+    max-width: 80%;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+#loading-screen, #disconnected-screen, #settings-screen {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white;
+    text-align: center;
+    z-index: 2;
+}
+
+#settings-screen {
+    text-align: left;
+    z-index: 1;
+}
+
+#loading-screen h4, #disconnected-screen h4 {
+    margin-top: 50px;
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+}
+
+#current-hour, #current-minute {
+    width: 50px;
+    margin-right: 10px;
+}
+
+#save-button {
+    width: 100%;
+    margin-top: 40px;
+}
+
+#snake-stick {
+    margin: 40px auto 0 auto;
+}
+
+#runner-jump-btn {
+    width: 100px;
+    height: 100px;
+    margin-top:20px;
+}
+
+.stick {
+    display: flex;
+    width: 150px;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+    border: .1rem solid #5755d9;
+    border-radius: 50%;
+    box-shadow: 0 0 0 .1rem rgba(87, 85, 217, .2);
+    touch-action: none;
+}
+
+.stick-point {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    background: #5755d9;
+    border: .05rem solid #3634d2;
+    box-shadow: 0 0 0 .1rem rgba(87, 85, 217, .2);
+    border-radius: 50%;
+    touch-action: none;
+}
+
+.settings-label {
+    display:block;
+    margin-top:40px;
+}
+
+.color-range {
+    --thumb-color: #FF0000;
+    width: 100%;
+    -webkit-appearance: none;
+    cursor: pointer;
+    user-select: none;
+}
+
+.color-range::-webkit-slider-thumb,
+.color-range::-moz-range-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    position: relative;
+    bottom: 4px;
+    border: #FFFFFF solid 2px;
+    border-radius: 16px;
+    background-color: var(--thumb-color);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transform: 50% 50%;
+    transition: transform 0.3s;
+    transform-origin: center;
+}
+
+.color-range::-webkit-slider-thumb:hover,
+.color-range::-moz-range-thumb:hover {
+    transform: scale(2.0);
+}
+
+.color-range::-webkit-slider-runnable-track,
+.color-range::-moz-range-track {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 8px;
+    background: linear-gradient(to right, #FF0000, #FFFF00, #00FF00, #00FFFF, #0000FF, #FF00FF, #FF0000);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.color-range:focus {
+    outline: none;
+}

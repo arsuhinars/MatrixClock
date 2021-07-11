@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Matrix Clock OS</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="spectre.min.css">
+        <link rel="stylesheet" href="icons.min.css">
+        <link rel="stylesheet" href="spectre-exp.min.css">
+        <script src="utils.js"> </script>
+        <script src="main.js"> </script>
+        <script src="snake.js"> </script>
+        <script src="runner.js"> </script>
+    </head>
+    <body>
+        <div id="loading-screen">
+            <h4>Идет подключение</h4>
+            <div class="loading loading-lg"></div>
+        </div>
+        <div id="disconnected-screen" style="display: none; opacity: 0;">
+            <h4></h4><br/>
+            <button id="reconnect-button" class="btn">Переподключиться</button>
+        </div>
+        <div id="settings-screen" style="display: none; opacity: 0;">
+            <div id="header" style="text-align: left;">
+                <button id="back-button" class="btn btn-link"><i class="icon icon-back"></i></button>
+                <h4 class="text-primary" style="margin: 2px 0 0 10px; flex-grow: 1;">Настройки</h4>
+            </div>
+            <main>
+                <label class="form-switch">
+                    <input name="auto-brightness" type="checkbox">
+                    <i class="form-icon"></i>Автоподстройка яркости
+                </label>
+                <label for="brightness" class="settings-label"></label>Яркость</label>
+                <input name="brightness" class="slider" type="range" min="0" max="255" value="50">
+                <label for="wifi-ssid" class="settings-label">Имя точки доступа</label>
+                <input name="wifi-ssid" class="form-input" type="text">
+                <label for="wifi-pass" class="settings-label">Пароль точки доступа</label>
+                <input name="wifi-pass" class="form-input" type="password">
+                <label for="time-zone" class="settings-label">Часовой пояс</label>
+                <select id="time-zone" class="form-select"></select>
+                <label class="form-switch" style="margin-top: 40px">
+                    <input name="use-ntp" type="checkbox">
+                    <i class="form-icon"></i>Синхронизация времени по интернету
+                </label>
+                <label for="ntp-addr" class="settings-label">Адрес NTP сервера</label>
+                <input name="ntp-addr" class="form-input" type="text">
+                <label class="settings-label">Текущее время</label>
+                <select id="current-hour" class="form-select"></select>
+                <select id="current-minute" class="form-select"></select>
+                <button id="set-current-time-btn" class="btn btn-primary">Изменить на настоящее</button>
+                <button id="save-button" class="btn btn-primary">Сохранить настройки</button>
+            </main>
+        </div>
+        <div id="header">
+            <h4 class="text-primary" style="margin: 0; flex-grow: 1;">MatrixClock OS</h4>
+            <button id="settings-button" class="btn btn-primary"><i class="icon icon-menu"></i></button>
+        </div>
+        <main>
+            <h4>Выберите режим</h4>
+            <select id="mode-select" class="form-select">
+                <option>Часы</option>
+                <option>Эффекты</option>
+                <option>Вывод текста</option>
+                <option>Рисовалка</option>
+                <option>Змейка</option>
+                <option>Runner</option>
+            </select>
+
+            <div id="clock-container">
+                <h4 style="margin-top: 40px;">Выберите подрежим</h4>
+                <select id="clock-mode-select" class="form-select">
+                    <option>Сплошной цвет</option>
+                    <option>Часы на текущем фоне</option>
+                    <option>Текущий фон поверх часов</option>
+                </select>
+                <h4 style="margin-top: 40px;">Настройки</h4>
+                <label for="clock-fill-color" class="settings-label">Цвет текста</label>
+                <input name="clock-fill-color" type="range" min="0" max="1000" class="color-range" style="width: 100%">
+
+                <label class="form-switch" style="margin-top:40px;">
+                    <input name="clock-bg-enabled" type="checkbox">
+                    <i class="form-icon"></i>Смена режима часов и фона
+                </label>
+
+                <label for="clock-bg" class="settings-label">Текущий фон часов</label>
+                <select id="clock-bg" class="form-select">
+                    <option>Бегущая радуга</option>
+                    <option>Облака</option>
+                    <option>Лава</option>
+                    <option>Радуга</option>
+                    <option>Плазма</option>
+                    <option>Океан</option>
+                </select>
+            </div>
+
+            <div id="background-container" style="display: none; opacity: 0;">
+                <h4 style="margin-top: 40px;">Выберите подрежим</h4>
+                <select id="background-mode-select" class="form-select">
+                    <option>Бегущая радуга</option>
+                    <option>Матрица</option>
+                    <option>Падающий снег</option>
+                    <option>Конфети</option>
+                    <option>Звездопад</option>
+                    <option>Эквалайзер</option>
+                    <option>Облака</option>
+                    <option>Лава</option>
+                    <option>Радуга</option>
+                    <option>Плазма</option>
+                    <option>Океан</option>
+                    <option>Огонь</option>
+                    <option>Змейка (демо-режим)</option>
+                    <option>Runner (демо-режим)</option>
+                    <option>Полезный текст</option>
+                </select>
+                <h4 style="margin-top: 40px;">Настройки</h4>
+                <label class="form-switch">
+                    <input name="bg-change-flag" type="checkbox">
+                    <i class="form-icon"></i>Автоматическая смена режимов
+                </label>
+            </div>
+
+            <div id="running-line-container" style="display: none; opacity: 0;">
+                <label for="running-line-text" class="settings-label">Текст</label>
+                <input name="running-line-text" class="form-input" type="text">
+
+                <label for="running-line-speed" class="settings-label"></label>Скорость</label>
+                <input name="running-line-speed" class="slider" type="range" min="0" max="255" value="125">
+
+                <label for="running-line-bg" class="settings-label">Фон текста</label>
+                <select id="running-line-bg" class="form-select">
+                    <option>Бегущая радуга</option>
+                    <option>Облака</option>
+                    <option>Лава</option>
+                    <option>Радуга</option>
+                    <option>Плазма</option>
+                    <option>Океан</option>
+                </select>
+            </div>
+
+            <div id="paint-container" style="display: none; opacity: 0;">
+
+            </div>
+
+            <div id="snake-container" style="display: none; opacity: 0;">
+                <h4 style="margin-top: 40px;">Змейка</h4>
+                <div id="snake-main-menu">
+                    <div id="snake-lose-msg">
+                        <h4 style="margin-top: 20px;text-align:center">Вы проиграли!</h4>
+                        <h4 style="margin-top: 10px;text-align:center" id="snake-lose-score-text">Ваш счет: 0</h4>
+                        <h4 style="margin-top: 10px;text-align:center" id="snake-record-text">Ваш рекорд: 0</h4>
+                    </div>
+                    <label>Сложность игры</label>
+                    <select id="snake-difficulty" class="form-select">
+                        <option>Легко</option>
+                        <option>Нормально</option>
+                        <option>Сложно</option>
+                    </select>
+                    <div id="snake-barrier-warning" class="toast toast-warning" style="margin-top:20px;">
+                        Внимание! На сложном границы поля ограничены!
+                    </div>
+                    <button id="snake-start-btn" class="btn p-centered" style="margin-top:20px;">Начать игру</button>
+                </div>
+                <div id="snake-play-menu" style="display: none; opacity: 0;">
+                    <h4 id="snake-score-text" style="margin-top: 20px;text-align:center">Ваш счет: 0</h4>
+                    <div id="snake-stick" class="stick">
+                        <div class="stick-point"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="runner-container" style="display: none; opacity: 0;">
+                <h4 style="margin-top: 40px;">Runner</h4>
+                <div id="runner-main-menu">
+                    <div id="runner-lose-msg">
+                        <h4 style="margin-top: 20px;text-align:center">Вы проиграли!</h4>
+                        <h4 style="margin-top: 10px;text-align:center" id="runner-lose-score-text">Ваш счет: 0</h4>
+                        <h4 style="margin-top: 10px;text-align:center" id="runner-record-text">Ваш рекорд: 0</h4>
+                    </div>
+                    <button id="runner-start-btn" class="btn p-centered" style="margin-top:20px;">Начать игру</button>
+                </div>
+                <div id="runner-play-menu" style="display: none; opacity: 0;">
+                    <h4 id="runner-score-text" style="margin-top: 20px;text-align:center">Ваш счет: 0</h4>
+                    <button id="runner-jump-btn" class="btn btn-primary p-centered s-circle">
+                        <i class="icon icon-arrow-up icon-3x"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
