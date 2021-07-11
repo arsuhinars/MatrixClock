@@ -1,5 +1,5 @@
 # MatrixClock OS
-<img src="https://user-images.githubusercontent.com/36979003/125191748-122d7a80-e255-11eb-9431-ce85d6d289d5.jpg" width="200"> <img src="https://user-images.githubusercontent.com/36979003/125191764-21acc380-e255-11eb-8c1a-de06c466861e.jpg" width="200"> <img src="https://user-images.githubusercontent.com/36979003/125191766-25404a80-e255-11eb-9388-d9f2f13dcc27.jpg" width="200"><br>
+<img src="https://user-images.githubusercontent.com/36979003/125191748-122d7a80-e255-11eb-9431-ce85d6d289d5.jpg" height="200"> <img src="https://user-images.githubusercontent.com/36979003/125191764-21acc380-e255-11eb-8c1a-de06c466861e.jpg" height="200"> <img src="https://user-images.githubusercontent.com/36979003/125191766-25404a80-e255-11eb-9388-d9f2f13dcc27.jpg" height="200"><br>
 Самодельные часы на матричном модуле на светодиодах WS2812 для ESP8266.
 
 ## Основные функции
