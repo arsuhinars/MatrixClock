@@ -73,8 +73,8 @@ let modesMenus = []
  * Функция открытия подключения к устройству
  */
 function connect() {
-    //socket = new WebSocket('ws://' + window.location.hostname + ':81')
-    socket = new WebSocket('ws://' + '192.168.1.68' + ':81')
+    socket = new WebSocket('ws://' + window.location.hostname + ':81')
+    // socket = new WebSocket('ws://' + '192.168.1.68' + ':81')
     socket.bufferType = "arraybuffer";
     socket.onopen = () => {
         //Скрываем экран загрузки
